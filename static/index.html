@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fbf7f3">
+  <title>同词相遇 · Same Word</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script defer src="/app.js"></script>
+</head>
+<body>
+  <div class="page-shell">
+    <header class="site-header">
+      <a class="brand" href="/" id="brand-link" aria-label="同词相遇首页">
+        <span class="brand-mark" aria-hidden="true">💞</span>
+        <span><strong>同词相遇</strong><small>SAME WORD</small></span>
+      </a>
+      <div class="header-actions">
+        <span class="room-pill hidden" id="room-pill"></span>
+        <label class="language-control"><span aria-hidden="true">🌐</span><span class="sr-only">Language</span>
+          <select id="language-select" aria-label="Language"><option value="zh">简体中文</option><option value="en">English</option></select>
+        </label>
+      </div>
+    </header>
+
+    <main>
+      <section id="home-screen" class="home-screen">
+        <div class="hero">
+          <div class="eyebrow" id="hero-eyebrow">和朋友的脑回路碰个面</div>
+          <h1 id="hero-title">你的脑回路，<br><em>恰好我也有。</em></h1>
+          <p id="hero-description">一个词，一点联想，一次不约而同。<br>2–4 人在线 · 想到一起为止</p>
+          <div class="hero-example"><span>大海</span><b>×</b><span>天空</span><b>→</b><strong>蓝色 ✓</strong></div>
+        </div>
+
+        <section class="setup-card" aria-label="创建或加入房间">
+          <div class="top-tabs" role="tablist" aria-label="房间操作">
+            <button type="button" id="create-tab" class="top-tab active" data-home-tab="create" role="tab" aria-selected="true">⌂ &nbsp;创建房间</button>
+            <button type="button" id="join-tab" class="top-tab" data-home-tab="join" role="tab" aria-selected="false">➜ &nbsp;加入房间</button>
+          </div>
+
+          <form id="create-form" class="setup-form">
+            <div class="field-heading"><label id="mode-label">游戏玩法</label><span id="mode-caption">自由联想猜同词</span></div>
+            <div class="segmented" role="group" aria-labelledby="mode-label">
+              <button type="button" class="selected" data-mode="word">同词联想</button>
+              <button type="button" data-mode="quiz">默契问答</button>
+            </div>
+            <label class="field-label" for="create-name" id="name-label">怎么称呼你？</label>
+            <input id="create-name" name="name" maxlength="20" autocomplete="nickname" placeholder="柠檬可乐" required>
+            <div class="field-heading"><label id="count-label">房间人数</label><span id="count-caption">满员后开始</span></div>
+            <div class="segmented" role="group" aria-labelledby="count-label">
+              <button type="button" class="selected" data-capacity="2">2 人</button>
+              <button type="button" data-capacity="3">3 人</button>
+              <button type="button" data-capacity="4">4 人</button>
+            </div>
+            <div class="field-heading"><label id="time-label">每轮思考时间</label></div>
+            <div class="segmented" role="group" aria-labelledby="time-label">
+              <button type="button" class="selected" data-duration="30">30 秒</button>
+              <button type="button" data-duration="60">60 秒</button>
+              <button type="button" data-duration="custom">自定义</button>
+            </div>
+            <div class="custom-time hidden" id="custom-time-wrap"><input type="number" id="custom-time" min="5" max="300" value="45" inputmode="numeric"><span id="seconds-label">秒（5–300）</span></div>
+            <div id="quiz-settings" class="quiz-settings hidden">
+              <div class="field-heading"><label id="questions-label">题目数量</label></div>
+              <div class="segmented" role="group" aria-labelledby="questions-label">
+                <button type="button" data-questions="5">5 题</button>
+                <button type="button" class="selected" data-questions="10">10 题</button>
+                <button type="button" data-questions="15">15 题</button>
+              </div>
+              <label class="field-label" for="quiz-category" id="category-label">题目分类</label>
+              <select id="quiz-category"><option value="all">全部分类</option><option value="daily">生活日常</option><option value="imagination">脑洞想象</option><option value="personality">性格偏好</option></select>
+            </div>
+            <button class="primary-button full-width" type="submit" id="create-submit">创建我的房间</button>
+            <p class="form-hint" id="create-hint">创建后邀请朋友，一起揭晓答案。</p>
+          </form>
+
+          <form id="join-form" class="setup-form hidden">
+            <label class="field-label first" for="room-code" id="room-code-label">输入房间号</label>
+            <input id="room-code" name="code" maxlength="6" autocapitalize="characters" autocomplete="off" spellcheck="false" placeholder="6 位房间号" required>
+            <label class="field-label" for="join-name" id="join-name-label">怎么称呼你？</label>
+            <input id="join-name" name="name" maxlength="20" autocomplete="nickname" placeholder="柠檬可乐" required>
+            <button class="primary-button full-width" type="submit" id="join-submit">加入房间</button>
+          </form>
+        </section>
+        <p class="page-footer" id="home-footer">让脑回路相遇，让朋友更靠近。</p>
+      </section>
+
+      <section id="room-screen" class="room-screen hidden" aria-live="polite">
+        <div id="connection-banner" class="connection-banner hidden"></div>
+        <div id="room-content"></div>
+      </section>
+    </main>
+    <div id="toast" class="toast" role="alert" aria-live="assertive"></div>
+  </div>
+</body>
+</html>
